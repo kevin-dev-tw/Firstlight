@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Tab</title>
+  <link rel="icon" type="image/png" href="icons/icon-48.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <canvas class="dots-canvas" id="dots-canvas" aria-hidden="true"></canvas>
+   <div class="page">
+
+    <!-- Masthead -->
+    <header class="masthead reveal" style="--i:0">
+      <time class="masthead-date" id="masthead-date" datetime=""></time>
+    </header>
+
+    <!-- Main grid -->
+    <main class="grid">
+
+      <!-- Left: clock, search -->
+      <section class="primary">
+        <h1 class="clock reveal" style="--i:1" aria-label="Current time">
+          <span id="clock-time"></span>
+        </h1>
+
+        <form class="search reveal" style="--i:2" id="search-form" role="search">
+          <label class="visually-hidden" for="search-input">Search the web</label>
+          <input
+            id="search-input"
+            class="search-input"
+            type="text"
+            name="q"
+            placeholder="Search the web"
+            autocomplete="off"
+            spellcheck="false">
+          <button type="submit" class="search-go" aria-label="Search">&#8594;</button>
+        </form>
+      </section>
+
+      <!-- Right: mini calendar rail -->
+      <section class="secondary reveal" style="--i:3">
+        <h2 class="section-head" id="cal-month"></h2>
+        <div class="mini-cal" id="mini-cal" role="grid" aria-label="Calendar"></div>
+      </section>
+
+    </main>
+
+    <!-- Index: shortcut dock -->
+    <footer class="index reveal" style="--i:4">
+      <div class="dock">
+        <ol class="shortcut-list" id="shortcut-list"></ol>
+        <button class="index-add" id="shortcut-add-toggle" type="button"
+          aria-haspopup="dialog" aria-label="Add shortcut">+</button>
+      </div>
+
+    </footer>
+
+    <!-- Add-shortcut modal -->
+    <dialog class="shortcut-modal" id="shortcut-modal" aria-labelledby="shortcut-modal-title">
+      <h2 class="shortcut-modal-title" id="shortcut-modal-title">Add shortcut</h2>
+      <form class="shortcut-form" id="shortcut-form">
+        <input id="shortcut-name" class="shortcut-field" type="text" placeholder="Name" maxlength="24" required>
+        <input id="shortcut-url" class="shortcut-field" type="text" placeholder="https://" required inputmode="url">
+        <div class="shortcut-modal-actions">
+          <button class="shortcut-cancel" id="shortcut-cancel" type="button">Cancel</button>
+          <button class="shortcut-save" type="submit">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

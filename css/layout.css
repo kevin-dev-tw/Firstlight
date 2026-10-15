@@ -1,0 +1,94 @@
+/* Firstlight - layout: page grid, topbar, index, collapse */
+
+.page {
+  min-height: 100dvh;
+  max-width: 1180px;
+  margin-inline: auto;
+  padding: clamp(20px, 4vw, 40px) clamp(20px, 5vw, 56px);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Floating pill navbar: solid ink pill, centered, auto width.
+   --ink always contrasts --canvas, so it inverts cleanly in dark mode. */
+.masthead {
+  align-self: center;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 9px 22px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  color: var(--canvas);
+  background: var(--ink);
+  border-radius: 999px;
+  box-shadow: var(--shadow-card);
+}
+
+.masthead-date {
+  font-weight: 400;
+  color: var(--canvas);
+  opacity: 0.75;
+  letter-spacing: 0.04em;
+}
+
+/* Main: asymmetric 2fr / 1fr split */
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+  padding-block: clamp(24px, 5vh, 56px);
+}
+
+.primary {
+  min-width: 0;
+}
+
+/* Today panel: the one elevated surface on the page */
+.secondary {
+  min-width: 0;
+  align-self: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  padding: 20px 22px;
+}
+
+/* Dock at the bottom, centered */
+.index {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.dock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Narrow viewports: everything stacks */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+
+  .masthead {
+    font-size: 0.66rem;
+  }
+}

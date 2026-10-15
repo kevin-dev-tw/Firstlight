@@ -1,0 +1,91 @@
+/* Document page: article column only, no nav or footer.
+   Reuses base.css tokens, fonts, dot grid, grain, .reveal */
+
+.doc-wrap {
+  width: min(680px, 100% - 48px);
+  margin-inline: auto;
+}
+
+/* Article column */
+.doc {
+  padding-top: clamp(44px, 8vh, 72px);
+  padding-bottom: clamp(40px, 7vh, 72px);
+}
+
+.doc-head h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 560;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.doc-updated {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}
+
+.doc-lede {
+  margin-top: 28px;
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.doc-section {
+  margin-top: 36px;
+  border-top: 1px solid var(--line);
+  padding-top: 20px;
+}
+
+.doc-section h2 {
+  font-size: 1.12rem;
+  font-weight: 560;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.doc-section p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.doc-section ul {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.doc-section li {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  padding-left: 16px;
+  position: relative;
+}
+
+.doc-section li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 5px;
+  height: 1.5px;
+  background: var(--ink-faint);
+}
+
+.mono-inline {
+  font-family: var(--mono);
+  font-size: 0.82em;
+  color: var(--ink);
+  background: var(--canvas);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: 1px 6px;
+  white-space: nowrap;
+}
+

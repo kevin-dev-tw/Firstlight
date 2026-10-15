@@ -1,0 +1,377 @@
+/* Firstlight - components: clock, search, calendar, index */
+
+/* Clock: huge sans, fixed-width digit cells to avoid jitter */
+.clock {
+  font-weight: 320;
+  font-size: clamp(4.4rem, 12.5vw, 9.5rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(22px, 5vh, 44px);
+  font-variant-numeric: tabular-nums;
+}
+
+.clock .digit {
+  display: inline-block;
+  width: 0.58em;
+  text-align: center;
+}
+
+.clock .colon {
+  display: inline-block;
+  width: 0.3em;
+  text-align: center;
+  color: var(--accent);
+  transform: translateY(-0.05em);
+}
+
+/* Search: rounded field, whisper border, accent ring on focus */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 400px;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 4px 6px 4px 18px;
+  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.search:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.98rem;
+  padding: 8px 0;
+}
+
+.search-input::placeholder,
+.shortcut-field::placeholder {
+  color: var(--ink-faint);
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.search-go {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease-out), opacity 0.2s var(--ease-out);
+}
+
+.search-go:hover {
+  transform: translateX(1px);
+}
+
+.search-go:active {
+  transform: scale(0.94);
+}
+
+/* Section heads: mono label inside the panel / above index */
+.section-head {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+/* Mini calendar: Monday-start month grid, today gets an accent dot */
+.mini-cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  row-gap: 4px;
+}
+
+.cal-dow {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+  text-align: center;
+  padding-bottom: 8px;
+}
+
+.cal-day {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-soft);
+  border-radius: 999px;
+}
+
+.cal-day.today {
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 500;
+}
+
+/* Touch devices have no hover: reveal remove controls permanently,
+   slightly dimmed so they stay subordinate. */
+@media (hover: none) {
+  .shortcut-remove {
+    opacity: 0.8;
+    pointer-events: auto;
+  }
+}
+
+/* Index: icon-only dock, name floats up on hover */
+.shortcut-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.shortcut {
+  position: relative;
+}
+
+.shortcut-link {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-ctrl);
+  transition: background-color 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.shortcut-link:hover {
+  background: var(--accent-wash);
+  transform: translateY(-3px);
+}
+
+.shortcut-link:active {
+  transform: translateY(-1px);
+}
+
+.shortcut-favicon {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+}
+
+.shortcut-favicon img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  border-radius: var(--r-sm);
+}
+
+.shortcut-favicon .monogram {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-radius: var(--r-sm);
+}
+
+/* Name label floats above the tile on hover */
+.shortcut-name {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  translate: -50% 4px;
+  white-space: nowrap;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--canvas);
+  background: var(--ink);
+  border-radius: 999px;
+  padding: 4px 10px;
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s var(--ease-out), translate 0.18s var(--ease-out);
+}
+
+.shortcut:hover .shortcut-name,
+.shortcut-link:focus-visible .shortcut-name {
+  opacity: 1;
+  translate: -50% 0;
+}
+
+.shortcut-remove {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s var(--ease-out), color 0.15s var(--ease-out), border-color 0.15s var(--ease-out);
+}
+
+/* 18px badge -> 34px touch area */
+.shortcut-remove::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+.shortcut:hover .shortcut-remove,
+.shortcut-remove:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.shortcut-remove:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Dashed ghost tile to add a shortcut */
+.index-add {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--r-ctrl);
+  transition: color 0.15s var(--ease-out), border-color 0.15s var(--ease-out), transform 0.2s var(--ease-out);
+}
+
+.index-add:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+
+/* Add-shortcut modal: native <dialog>, dimmed backdrop */
+.shortcut-modal {
+  margin: auto;
+  width: min(360px, calc(100vw - 48px));
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  color: var(--ink);
+}
+
+.shortcut-modal::backdrop {
+  background: rgba(24, 24, 27, 0.24);
+}
+
+.shortcut-modal-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  margin-bottom: 14px;
+}
+
+.shortcut-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.shortcut-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.shortcut-field {
+  min-width: 0;
+  font-size: 0.9rem;
+  padding: 7px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-sm);
+  background: var(--canvas);
+  transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+}
+
+.shortcut-field:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-ring);
+}
+
+.shortcut-cancel {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
+}
+
+.shortcut-cancel:hover {
+  color: var(--ink);
+  background: var(--accent-wash);
+}
+
+.shortcut-save {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: opacity 0.15s var(--ease-out), transform 0.15s var(--ease-out);
+}
+
+.shortcut-save:hover {
+  opacity: 0.88;
+}
+
+.shortcut-save:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 767px) {
+  .clock {
+    font-size: clamp(3.4rem, 17vw, 5.5rem);
+  }
+
+}

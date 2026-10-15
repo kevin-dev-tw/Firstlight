@@ -1,0 +1,10 @@
+{
+  "name": "firstlight",
+  "private": true,
+  "description": "A quiet, modern new tab. Time, calendar, and your index of the web.",
+  "scripts": {
+    "start": "node tools/serve.js",
+    "dev": "node tools/serve.js",
+    "icons": "node tools/gen-icons.js"
+  }
+}

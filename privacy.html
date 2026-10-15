@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy | Firstlight</title>
+  <meta name="description" content="Privacy policy for the Firstlight Chrome extension.">
+  <link rel="icon" type="image/png" href="icons/icon-48.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/doc.css">
+</head>
+<body>
+
+  <div class="doc-wrap">
+
+    <main class="doc">
+
+      <header class="doc-head reveal" style="--i:1">
+        <h1>Privacy</h1>
+        <p class="doc-updated">Last updated <time datetime="2026-10-14">October 14, 2026</time></p>
+      </header>
+
+      <p class="doc-lede reveal" style="--i:2">
+        Firstlight is a Chrome extension that replaces your new tab page with a
+        clock, a search field, a to-do list, and a row of shortcuts. It is
+        designed to keep your data on your machine or inside your own
+        Chrome account, and nowhere else.
+      </p>
+
+      <section class="doc-section reveal" style="--i:3">
+        <h2>What the extension stores</h2>
+        <p>Two things, and only when you create them yourself:</p>
+        <ul>
+          <li>Your to-do items and their checked state.</li>
+          <li>The names and URLs of the shortcuts you add to the dock.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section reveal" style="--i:4">
+        <h2>Where that data lives</h2>
+        <p>
+          Data is written to <span class="mono-inline">chrome.storage.sync</span>,
+          which syncs through your signed-in Chrome profile using Google's
+          infrastructure. If sync is unavailable, the extension falls back
+          to <span class="mono-inline">localStorage</span> on this machine only.
+          Either way, nothing is sent to a server we operate. We do not run one.
+        </p>
+      </section>
+
+      <section class="doc-section reveal" style="--i:5">
+        <h2>Network requests</h2>
+        <p>The page makes outbound requests in exactly three situations:</p>
+        <ul>
+          <li>Shortcut icons are fetched from the Dashboard Icons CDN on jsDelivr. The request contains only the icon name.</li>
+          <li>If an icon is missing there, Chrome's own <span class="mono-inline">_favicon</span> endpoint is used instead.</li>
+          <li>Submitting the search field sends your query to Google, because that is what a search field does.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section reveal" style="--i:6">
+        <h2>What it never does</h2>
+        <ul>
+          <li>No analytics, telemetry, or usage reporting of any kind.</li>
+          <li>No cookies, no fingerprinting, no third-party trackers.</li>
+          <li>No account system and nothing to sign in to.</li>
+          <li>No access to your browsing history, tabs, or other sites.</li>
+        </ul>
+      </section>
+
+      <section class="doc-section reveal" style="--i:7">
+        <h2>Permissions</h2>
+        <p>
+          The extension declares two permissions:
+          <span class="mono-inline">storage</span>, to save your list and
+          shortcuts, and <span class="mono-inline">favicon</span>, to resolve
+          site icons through Chrome. It requests nothing else.
+        </p>
+      </section>
+
+      <section class="doc-section reveal" style="--i:8">
+        <h2>Changes and questions</h2>
+        <p>
+          If this policy changes, the updated text replaces this page. For
+          questions about the extension, open an issue in the repository
+          you got it from.
+        </p>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script>
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      document.body.classList.add('is-loaded');
+    }));
+  </script>
+</body>
+</html>
