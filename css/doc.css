@@ -2,7 +2,7 @@
    Reuses base.css tokens, fonts, dot grid, grain, .reveal */
 
 .doc-wrap {
-  width: min(680px, 100% - 48px);
+  width: min(30rem, 100% - 48px);
   margin-inline: auto;
 }
 
@@ -17,10 +17,11 @@
   font-weight: 560;
   letter-spacing: -0.03em;
   line-height: 1.1;
+  text-wrap: balance;
 }
 
 .doc-updated {
-  margin-top: 10px;
+  margin-top: 12px;
   font-family: var(--mono);
   font-size: 0.7rem;
   letter-spacing: 0.08em;
@@ -44,7 +45,8 @@
   font-size: 1.12rem;
   font-weight: 560;
   letter-spacing: -0.01em;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  text-wrap: balance;
 }
 
 .doc-section p {
@@ -54,7 +56,7 @@
 }
 
 .doc-section ul {
-  margin-top: 10px;
+  margin-top: 12px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -66,6 +68,19 @@
   color: var(--ink-soft);
   padding-left: 16px;
   position: relative;
+}
+
+.doc a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 2px;
+  transition: color 0.15s var(--ease-out), text-decoration-color 0.15s var(--ease-out);
+}
+
+.doc a:hover {
+  color: var(--accent);
+  text-decoration-color: var(--accent);
 }
 
 .doc-section li::before {
@@ -85,7 +100,7 @@
   background: var(--canvas);
   border: 1px solid var(--line);
   border-radius: var(--r-sm);
-  padding: 1px 6px;
+  padding: 2px 8px;
   white-space: nowrap;
 }
 

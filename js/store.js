@@ -1,7 +1,7 @@
 // Thin storage layer: chrome.storage.sync when available,
 // localStorage fallback so newtab.html works opened directly in a browser.
 
-const hasChromeStorage =
+export const hasChromeStorage =
   typeof chrome !== 'undefined' &&
   chrome.storage &&
   chrome.storage.sync;

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Firstlight",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "A quiet, modern new tab. Time, calendar, and your index of the web.",
   "chrome_url_overrides": {
     "newtab": "newtab.html"

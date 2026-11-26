@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firstlight, a quiet new tab</title>
+  <meta name="description" content="A quiet, modern new tab. Time, calendar, and your index of the web.">
+  <link rel="icon" type="image/png" href="icons/icon-48.png">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  <canvas class="dots-canvas" id="dots-canvas" aria-hidden="true"></canvas>
+  <main class="page landing">
+
+    <header class="landing-head reveal" style="--i:0">
+      <span class="wordmark">Firstlight</span>
+      <nav class="landing-nav">
+        <a class="landing-link" href="privacy.html">Privacy</a>
+        <a class="landing-cta" href="https://chromewebstore.google.com/detail/firstlight/ggloeoemmhhlmjopggdmbldambpbkinl">Add to Chrome</a>
+      </nav>
+    </header>
+
+    <section class="bento" aria-label="Live demo">
+
+      <!-- clock 2x2 hero cell -->
+      <article class="tile tile-clock reveal" style="--i:1">
+        <h1 class="clock" aria-label="Current time"><span id="clock-time"></span></h1>
+        <p class="tile-date" id="masthead-date" datetime=""></p>
+      </article>
+
+      <!-- search 2x1, working -->
+      <article class="tile tile-search reveal" style="--i:2">
+        <form class="search" id="search-form" role="search">
+          <label class="visually-hidden" for="search-input">Search the web</label>
+          <input
+            id="search-input"
+            class="search-input"
+            type="text"
+            name="q"
+            placeholder="Search the web"
+            autocomplete="off"
+            spellcheck="false">
+          <button type="submit" class="search-go" aria-label="Search"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg></button>
+        </form>
+      </article>
+
+      <!-- todos 1x2 tall, working -->
+      <article class="tile tile-todos reveal" style="--i:3">
+        <h2 class="section-head">Today</h2>
+        <ul class="todo-list" id="todo-list"></ul>
+        <form class="todo-form" id="todo-form">
+          <label class="visually-hidden" for="todo-input">Add a to-do</label>
+          <input id="todo-input" class="todo-input" type="text" placeholder="Add a to-do" maxlength="80" autocomplete="off">
+        </form>
+      </article>
+
+      <!-- stack 1x1 -->
+      <article class="tile tile-stack reveal" style="--i:4">
+        <h2 class="section-head">Stack</h2>
+        <p class="tile-line">Vanilla JS</p>
+        <p class="tile-line">Manifest V3</p>
+        <p class="tile-line">No build step</p>
+      </article>
+
+      <!-- sync 1x1, live backend -->
+      <article class="tile tile-sync reveal" style="--i:5">
+        <h2 class="section-head">Sync</h2>
+        <p class="sync-status" id="sync-status"></p>
+        <p class="tile-line">Data stays in your own Chrome profile.</p>
+      </article>
+
+      <!-- dock 2x1 ink band, real links -->
+      <article class="tile tile-dock reveal" style="--i:6">
+        <ol class="shortcut-list" id="landing-dock"></ol>
+      </article>
+
+    </section>
+
+    <!-- Features: each card carries a live fragment of the thing it names -->
+    <section class="lp-section" id="features">
+      <h2 class="lp-head">What’s in a tab</h2>
+      <div class="feat-grid">
+
+        <article class="tile feat reveal" style="--i:7">
+          <h3 class="feat-title">The time</h3>
+          <p class="feat-copy">Every new tab opens on the current minute, the date set quiet under it.</p>
+          <p class="frag-clock" data-clock-mirror aria-hidden="true"></p>
+        </article>
+
+        <article class="tile feat reveal" style="--i:8">
+          <h3 class="feat-title">The search</h3>
+          <p class="feat-copy">One field. Type to search Google; paste a URL and it goes straight there.</p>
+          <code class="frag-code">maps.google.com<span class="frag-arrow">→</span></code>
+        </article>
+
+        <article class="tile feat reveal" style="--i:9">
+          <h3 class="feat-title">The dock</h3>
+          <p class="feat-copy">Shortcuts you pick yourself, favicons for real, synced through Chrome.</p>
+          <ul class="frag-dock" id="frag-dock"></ul>
+        </article>
+
+        <article class="tile feat reveal" style="--i:10">
+          <h3 class="feat-title">The month</h3>
+          <p class="feat-copy">The calendar and your to-dos live in the rail, no other app needed.</p>
+          <div class="frag-cal" id="mini-cal" aria-hidden="true"></div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Install: three real steps, real commands -->
+    <section class="lp-section" id="install">
+      <h2 class="lp-head">Install it in 3 steps</h2>
+      <div class="steps-grid">
+
+        <article class="tile step reveal" style="--i:11">
+          <h3 class="feat-title">1. Open the listing</h3>
+          <p class="feat-copy">Find Firstlight on the Chrome Web Store.</p>
+          <code class="frag-code">Chrome Web Store</code>
+        </article>
+
+        <article class="tile step reveal" style="--i:12">
+          <h3 class="feat-title">2. Add it to Chrome</h3>
+          <p class="feat-copy">Click Add to Chrome, confirm once.</p>
+          <code class="frag-code">Add to Chrome</code>
+        </article>
+
+        <article class="tile step reveal" style="--i:13">
+          <h3 class="feat-title">3. Open a tab</h3>
+          <p class="feat-copy">That’s it. Every new tab is your desk now.</p>
+          <code class="frag-code">Ctrl + T</code>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Privacy: the actual differentiator -->
+    <section class="lp-section lp-privacy reveal" id="privacy" style="--i:14">
+      <h2 class="lp-head">Private by default</h2>
+      <p class="privacy-line">Your data never leaves Chrome.</p>
+      <p class="privacy-copy">No account, no analytics, no server of ours. Everything lives in <code>chrome.storage</code> in your profile.</p>
+      <ul class="privacy-facts">
+        <li class="fact">No account</li>
+        <li class="fact">No analytics</li>
+        <li class="fact">3 request types</li>
+      </ul>
+      <a class="landing-link" href="privacy.html">Read the privacy policy</a>
+    </section>
+
+    <!-- FAQ: the last questions, answers open -->
+    <section class="lp-section" id="faq">
+      <h2 class="lp-head">What people ask first</h2>
+      <div class="faq-list">
+        <div class="faq-item reveal" style="--i:15">
+          <h3 class="faq-q">Is it free?</h3>
+          <p class="faq-a">Yes. Free on the Chrome Web Store, nothing to subscribe to.</p>
+        </div>
+        <div class="faq-item reveal" style="--i:16">
+          <h3 class="faq-q">Where do my shortcuts and to-dos live?</h3>
+          <p class="faq-a">In Chrome storage, synced across your browsers. Nothing is sent anywhere.</p>
+        </div>
+        <div class="faq-item reveal" style="--i:17">
+          <h3 class="faq-q">Does it work in other browsers?</h3>
+          <p class="faq-a">Manifest V3: Chrome, Edge, and other Chromium browsers.</p>
+        </div>
+        <div class="faq-item reveal" style="--i:18">
+          <h3 class="faq-q">How do I add a shortcut?</h3>
+          <p class="faq-a">The dock’s plus: paste a URL, name it, done.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="closing">
+      <div class="closing-cta reveal" style="--i:19">
+        <h2 class="closing-head">Open a quieter new tab</h2>
+        <a class="closing-btn" href="https://chromewebstore.google.com/detail/firstlight/ggloeoemmhhlmjopggdmbldambpbkinl">Add to Chrome</a>
+      </div>
+      <div class="closing-legal">
+        <span>Firstlight © 2026</span>
+        <a class="landing-link" href="privacy.html">Privacy</a>
+        <a class="landing-link" href="https://chromewebstore.google.com/detail/firstlight/ggloeoemmhhlmjopggdmbldambpbkinl">Chrome Web Store</a>
+      </div>
+    </footer>
+
+  </main>
+
+  <script type="module" src="js/landing.js"></script>
+</body>
+</html>

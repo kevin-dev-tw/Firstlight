@@ -40,7 +40,7 @@
         <h2>Where that data lives</h2>
         <p>
           Data is written to <span class="mono-inline">chrome.storage.sync</span>,
-          which syncs through your signed-in Chrome profile using Google's
+          which syncs through your signed-in Chrome profile using Google’s
           infrastructure. If sync is unavailable, the extension falls back
           to <span class="mono-inline">localStorage</span> on this machine only.
           Either way, nothing is sent to a server we operate. We do not run one.
@@ -52,7 +52,7 @@
         <p>The page makes outbound requests in exactly three situations:</p>
         <ul>
           <li>Shortcut icons are fetched from the Dashboard Icons CDN on jsDelivr. The request contains only the icon name.</li>
-          <li>If an icon is missing there, Chrome's own <span class="mono-inline">_favicon</span> endpoint is used instead.</li>
+          <li>If an icon is missing there, Chrome’s own <span class="mono-inline">_favicon</span> endpoint is used instead.</li>
           <li>Submitting the search field sends your query to Google, because that is what a search field does.</li>
         </ul>
       </section>
@@ -81,8 +81,8 @@
         <h2>Changes and questions</h2>
         <p>
           If this policy changes, the updated text replaces this page. For
-          questions about the extension, open an issue in the repository
-          you got it from.
+          questions about the extension, open an issue in
+          <a href="https://github.com/kevin-dev-tw/Firstlight">the repository you got it from</a>.
         </p>
       </section>
 

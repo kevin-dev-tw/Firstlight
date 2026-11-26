@@ -1,3 +1,10 @@
+/* Hallmark · v2.0.0 · built: the project · redesign: polish · scope: app · theme: locked DESIGN.md (canvas #FDFDFD, cobalt #2F57D9, Geist + Geist Mono) · genre modern-minimal */
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V- · the system is the project's own; this pass touches tokens, focus states, reveal safety and the 4px scale only */
+/* Hallmark · answered F7 · pills and circular day cells are the locked geometry of DESIGN.md §4 */
+/* Hallmark · waive 64 · the material is mono: DESIGN.md §3 locks Geist Mono as the meta, date and button voice · not costume, the page's own label face */
+/* Hallmark · waive 26b · privacy.html has no form control and no aria-disabled · its states live in components.css, beside the controls they style */
+/* Hallmark · kept tracked caps on labels (67) · DESIGN.md §3 locks the voice · Floor, so it keeps reporting by design */
+
 /* Firstlight - base: fonts, tokens, reset */
 
 @font-face {
@@ -28,9 +35,16 @@
   --accent-ink: #ffffff;
   --accent-wash: rgba(47, 87, 217, 0.08);
   --accent-ring: rgba(47, 87, 217, 0.22);
+  --dots-fine: rgba(24, 24, 27, 0.16);
+  --dots-coarse: rgba(148, 142, 132, 0.14);
+  --scrim: rgba(24, 24, 27, 0.24);
+  --on-ink-wash: rgba(255, 255, 255, 0.10);
 
   --sans: 'Geist', -apple-system, 'Segoe UI', system-ui, sans-serif;
   --mono: 'Geist Mono', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+  --font-outlier: var(--mono);
+
+  --icon-check: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
 
   --r-card: 16px;
   --r-ctrl: 10px;
@@ -51,6 +65,7 @@
 
 html, body {
   min-height: 100dvh;
+  overflow-x: clip;
 }
 
 body {
@@ -94,8 +109,8 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background-image:
-    radial-gradient(circle, rgba(24, 24, 27, 0.16) 1.4px, transparent 1.5px),
-    radial-gradient(circle, rgba(148, 142, 132, 0.14) 1.9px, transparent 2.0px);
+    radial-gradient(circle, var(--dots-fine) 1.4px, transparent 1.5px),
+    radial-gradient(circle, var(--dots-coarse) 1.9px, transparent 2.0px);
   background-size: 40px 40px, 120px 120px;
   background-position: 0 0, 20px 20px;
 }
@@ -144,19 +159,23 @@ body::after {
   outline-offset: 2px;
 }
 
-/* Entrance reveal: one shot, staggered via --i */
+/* Entrance reveal: one shot, staggered via --i.
+   Visible by default; @starting-style animates from hidden on
+   first render, so the page never ships blank with scripting off. */
 .reveal {
-  opacity: 0;
-  transform: translateY(12px);
+  opacity: 1;
+  transform: none;
   transition:
     opacity 0.55s var(--ease-out),
     transform 0.55s var(--ease-out);
   transition-delay: calc(var(--i, 0) * 80ms);
 }
 
-.is-loaded .reveal {
-  opacity: 1;
-  transform: none;
+@starting-style {
+  .reveal {
+    opacity: 0;
+    transform: translateY(12px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,7 +6,7 @@
   font-size: clamp(4.4rem, 12.5vw, 9.5rem);
   line-height: 1;
   letter-spacing: -0.035em;
-  margin-bottom: clamp(22px, 5vh, 44px);
+  margin-bottom: clamp(24px, 5vh, 44px);
   font-variant-numeric: tabular-nums;
 }
 
@@ -33,13 +33,14 @@
   background: var(--surface);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  padding: 4px 6px 4px 18px;
-  transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  padding: 4px 8px 4px 20px;
+  transition: border-color 0.2s var(--ease-out);
 }
 
 .search:focus-within {
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-ring);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .search-input {
@@ -50,7 +51,8 @@
 }
 
 .search-input::placeholder,
-.shortcut-field::placeholder {
+.shortcut-field::placeholder,
+.todo-input::placeholder {
   color: var(--ink-faint);
 }
 
@@ -101,7 +103,7 @@
 
 .cal-dow {
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.7rem;
   letter-spacing: 0.06em;
   color: var(--ink-faint);
   text-align: center;
@@ -124,10 +126,165 @@
   font-weight: 500;
 }
 
+/* Today: a small to-do list under the calendar, separated by a hairline */
+.todo {
+  margin-top: 16px;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+.todo-list {
+  max-height: 224px;
+  overflow-y: auto;
+  overflow-x: clip;
+  margin-bottom: 8px;
+}
+
+.todo-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* The label is the hit target: checkbox and text together */
+.todo-field {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-block-size: 44px;
+  cursor: pointer;
+}
+
+.todo-check {
+  appearance: none;
+  flex: none;
+  inline-size: 16px;
+  block-size: 16px;
+  margin: 0;
+  border: 1.5px solid var(--line-strong);
+  border-radius: 999px;
+  display: inline-grid;
+  place-content: center;
+  cursor: pointer;
+  transition: border-color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
+}
+
+.todo-check::before {
+  content: '';
+  inline-size: 8px;
+  block-size: 8px;
+  background-color: var(--accent-ink);
+  mask: var(--icon-check) no-repeat center / contain;
+  scale: 0;
+  transition: scale 0.15s var(--ease-out);
+}
+
+.todo-check:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.todo-check:checked::before {
+  scale: 1;
+}
+
+.todo-check:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Strike-through drawn as a scaleX line so it can animate */
+.todo-text {
+  position: relative;
+  min-width: 0;
+  font-size: 0.9rem;
+  color: var(--ink);
+  overflow-wrap: break-word;
+  transition: color 0.2s var(--ease-out);
+}
+
+.todo-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 55%;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease-out);
+}
+
+.todo-item.done .todo-text {
+  color: var(--ink-faint);
+}
+
+.todo-item.done .todo-text::after {
+  transform: scaleX(1);
+}
+
+.todo-remove {
+  flex: none;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-faint);
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s var(--ease-out), color 0.15s var(--ease-out), background-color 0.15s var(--ease-out);
+}
+
+/* 24px badge -> 40px touch area */
+.todo-remove::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+}
+
+.todo-item:hover .todo-remove,
+.todo-remove:focus-visible {
+  opacity: 1;
+}
+
+.todo-remove:hover {
+  color: var(--accent);
+  background: var(--accent-wash);
+}
+
+.todo-input {
+  width: 100%;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-ctrl);
+  background: var(--canvas);
+  transition: border-color 0.15s var(--ease-out);
+}
+
+.todo-input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+  border-color: var(--accent);
+}
+
+.todo-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Touch devices have no hover: reveal remove controls permanently,
    slightly dimmed so they stay subordinate. */
 @media (hover: none) {
-  .shortcut-remove {
+  .shortcut-remove,
+  .todo-remove {
     opacity: 0.8;
     pointer-events: auto;
   }
@@ -136,7 +293,7 @@
 /* Index: icon-only dock, name floats up on hover */
 .shortcut-list {
   display: flex;
-  gap: 6px;
+  gap: 8px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -202,7 +359,7 @@
   color: var(--canvas);
   background: var(--ink);
   border-radius: 999px;
-  padding: 4px 10px;
+  padding: 4px 12px;
   box-shadow: var(--shadow-card);
   opacity: 0;
   pointer-events: none;
@@ -253,6 +410,10 @@
   border-color: var(--accent);
 }
 
+.shortcut-remove:active {
+  transform: scale(0.9);
+}
+
 /* Dashed ghost tile to add a shortcut */
 .index-add {
   width: 48px;
@@ -274,10 +435,14 @@
   transform: translateY(-3px);
 }
 
+.index-add:active {
+  transform: translateY(-1px);
+}
+
 /* Add-shortcut modal: native <dialog>, dimmed backdrop */
 .shortcut-modal {
   margin: auto;
-  width: min(360px, calc(100vw - 48px));
+  width: min(360px, calc(100% - 48px));
   padding: 20px;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -286,8 +451,14 @@
   color: var(--ink);
 }
 
+.shortcut-modal:modal {
+  overscroll-behavior: contain;
+}
+
 .shortcut-modal::backdrop {
-  background: rgba(24, 24, 27, 0.24);
+  background: var(--scrim);
+  overflow: hidden;
+  overscroll-behavior: contain;
 }
 
 .shortcut-modal-title {
@@ -297,13 +468,13 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-faint);
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
 .shortcut-form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .shortcut-modal-actions {
@@ -316,17 +487,17 @@
 .shortcut-field {
   min-width: 0;
   font-size: 0.9rem;
-  padding: 7px 10px;
+  padding: 8px 12px;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-sm);
   background: var(--canvas);
-  transition: border-color 0.15s var(--ease-out), box-shadow 0.15s var(--ease-out);
+  transition: border-color 0.15s var(--ease-out);
 }
 
 .shortcut-field:focus {
-  outline: none;
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-ring);
 }
 
 .shortcut-cancel {
@@ -347,6 +518,10 @@
   background: var(--accent-wash);
 }
 
+.shortcut-cancel:active {
+  transform: scale(0.97);
+}
+
 .shortcut-save {
   font-family: var(--mono);
   font-size: 0.68rem;
@@ -355,7 +530,7 @@
   text-transform: uppercase;
   color: var(--accent-ink);
   background: var(--accent);
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 999px;
   cursor: pointer;
   transition: opacity 0.15s var(--ease-out), transform 0.15s var(--ease-out);
@@ -367,6 +542,21 @@
 
 .shortcut-save:active {
   transform: scale(0.96);
+}
+
+/* Disabled: opacity plus cursor, never opacity alone */
+.search-go:disabled,
+.index-add:disabled,
+.shortcut-cancel:disabled,
+.shortcut-save:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.search-input:disabled,
+.shortcut-field:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 @media (max-width: 767px) {

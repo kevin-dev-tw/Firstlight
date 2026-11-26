@@ -5,7 +5,7 @@ import { get, set } from './store.js';
 const DASH_ICONS =
   'https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png';
 
-const DEFAULT_SHORTCUTS = [
+export const DEFAULT_SHORTCUTS = [
   { name: 'GitHub', url: 'https://github.com' },
   { name: 'Gmail', url: 'https://mail.google.com' },
   { name: 'YouTube', url: 'https://youtube.com' },
@@ -31,7 +31,7 @@ function faviconUrl(pageUrl) {
   return null;
 }
 
-function buildFavicon(s) {
+export function buildFavicon(s) {
   const wrap = document.createElement('span');
   wrap.className = 'shortcut-favicon';
 
@@ -124,10 +124,22 @@ export async function initShortcuts() {
 
   cancel.addEventListener('click', () => modal.close());
 
-  // Click on the backdrop (the dialog element itself) closes the modal.
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) modal.close();
-  });
+  // Light dismiss comes from closedby="any". Where it is missing
+  // (pre-134 Chrome, Safari preview), fall back to a guarded
+  // pointer-position check — a target check would also fire on the
+  // dialog's own padding and the gaps between its children.
+  if (!('closedBy' in HTMLDialogElement.prototype)) {
+    const outside = (e) => {
+      const r = modal.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right
+        || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    let pressedOutside = false;
+    modal.addEventListener('pointerdown', (e) => { pressedOutside = outside(e); });
+    modal.addEventListener('pointerup', (e) => {
+      if (pressedOutside && outside(e)) modal.close();
+    });
+  }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();

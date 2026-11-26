@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>New Tab</title>
+  <meta name="description" content="A quiet, modern new tab. Time, calendar, and your index of the web.">
   <link rel="icon" type="image/png" href="icons/icon-48.png">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/layout.css">
@@ -37,7 +38,7 @@
             placeholder="Search the web"
             autocomplete="off"
             spellcheck="false">
-          <button type="submit" class="search-go" aria-label="Search">&#8594;</button>
+          <button type="submit" class="search-go" aria-label="Search"><svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5 14 14"/></svg></button>
         </form>
       </section>
 
@@ -45,6 +46,15 @@
       <section class="secondary reveal" style="--i:3">
         <h2 class="section-head" id="cal-month"></h2>
         <div class="mini-cal" id="mini-cal" role="grid" aria-label="Calendar"></div>
+
+        <div class="todo">
+          <h2 class="section-head">Today</h2>
+          <ul class="todo-list" id="todo-list"></ul>
+          <form class="todo-form" id="todo-form">
+            <label class="visually-hidden" for="todo-input">Add a to-do</label>
+            <input id="todo-input" class="todo-input" type="text" placeholder="Add a to-do" maxlength="80" autocomplete="off">
+          </form>
+        </div>
       </section>
 
     </main>
@@ -60,7 +70,7 @@
     </footer>
 
     <!-- Add-shortcut modal -->
-    <dialog class="shortcut-modal" id="shortcut-modal" aria-labelledby="shortcut-modal-title">
+    <dialog class="shortcut-modal" id="shortcut-modal" aria-labelledby="shortcut-modal-title" closedby="any">
       <h2 class="shortcut-modal-title" id="shortcut-modal-title">Add shortcut</h2>
       <form class="shortcut-form" id="shortcut-form">
         <input id="shortcut-name" class="shortcut-field" type="text" placeholder="Name" maxlength="24" required>
